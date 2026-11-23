@@ -34,7 +34,10 @@ app.post('/', (req, res) => {
     for (const change of entry.changes || []) {
       for (const s of change.value?.statuses || []) {
         // Only keep delivered and failed; ignore sent, read, etc.
-        if (s.status !== 'delivered' && s.status !== 'failed') continue;
+        if (s.status !== 'delivered' && s.status !== 'failed') {
+          console.log(JSON.stringify(req.body, null, 2));
+          continue;
+        }
 
         const isFailed = s.status === 'failed';
         const err = s.errors?.[0] || {};
